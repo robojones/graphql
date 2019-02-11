@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/prisma/prisma-examples/go/graphql/prisma-client"
+	"github.com/steebchen/graphql/prisma-client"
 )
 
 type Resolver struct {
@@ -89,14 +89,11 @@ func (r *queryResolver) Feed(ctx context.Context) ([]prisma.Post, error) {
 func (r *queryResolver) FilterPosts(ctx context.Context, searchString string) ([]prisma.Post, error) {
 	return r.Prisma.Posts(&prisma.PostsParams{
 		Where: &prisma.PostWhereInput{
-			Or: []prisma.PostWhereInput{
-				prisma.PostWhereInput{
-					TitleContains: &searchString,
-				},
-				prisma.PostWhereInput{
-					TitleContains: &searchString,
-				},
-			},
+			Or: []prisma.PostWhereInput{{
+				TitleContains: &searchString,
+			}, {
+				TitleContains: &searchString,
+			}},
 		},
 	}).Exec(ctx)
 }

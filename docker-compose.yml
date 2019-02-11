@@ -31,4 +31,4 @@ services:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
     volumes:
-      - /var/lib/postgresql/prisma/data:/var/lib/postgresql/data
+      - /var/lib/postgresql/prisma/data:/bitnami
