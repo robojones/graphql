@@ -2,6 +2,8 @@ package api
 
 import (
 	"context"
+	"github.com/prisma/prisma-client-lib-go"
+	"github.com/robojones/graphql/gqlgen"
 	"github.com/robojones/graphql/prisma-client"
 )
 
@@ -9,19 +11,19 @@ type Resolver struct {
 	Prisma *prisma.Client
 }
 
-func (r *Resolver) Mutation() MutationResolver {
+func (r *Resolver) Mutation() gqlgen.MutationResolver {
 	return &mutationResolver{r}
 }
-func (r *Resolver) Post() PostResolver {
+func (r *Resolver) Post() gqlgen.PostResolver {
 	return &postResolver{r}
 }
-func (r *Resolver) Query() QueryResolver {
+func (r *Resolver) Query() gqlgen.QueryResolver {
 	return &queryResolver{r}
 }
-func (r *Resolver) User() UserResolver {
+func (r *Resolver) User() gqlgen.UserResolver {
 	return &userResolver{r}
 }
-func (r *Resolver) Comment() CommentResolver {
+func (r *Resolver) Comment() gqlgen.CommentResolver {
 	return &commentResolver{r}
 }
 

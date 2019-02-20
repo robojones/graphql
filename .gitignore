@@ -1,4 +1,4 @@
-server/generated.go
-prisma-client/prisma.go
+gqlgen/gqlgen.go
+prisma/prisma.go
 vendor/
 .idea/
