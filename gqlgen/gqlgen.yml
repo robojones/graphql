@@ -7,9 +7,5 @@ schema: api/schema.graphqls
 exec:
   filename: gqlgen/gqlgen.go
 models:
-  Post:
-    model: github.com/robojones/graphql/prisma.Post
   User:
     model: github.com/robojones/graphql/prisma.User
-  Comment:
-    model: github.com/robojones/graphql/prisma.Comment

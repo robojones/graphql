@@ -1,34 +1,10 @@
 type User {
 	id: ID! @unique
 	email: String! @unique
-
-	posts: [Post!]! @relation(name: "PostToUser", onDelete: CASCADE)
-	comments: [Comment!]! @relation(name: "CommentToUser", onDelete: CASCADE)
-
-	name: String!
-}
-
-type Post {
-	id: ID! @unique
-
-	comments: [Comment!]! @relation(name: "CommentToPost", onDelete: CASCADE)
-	user: User! @relation(name: "PostToUser")
+	passwordHash: String!
 
 	createdAt: DateTime!
 	updatedAt: DateTime!
 
-	published: Boolean! @default(value: "false")
-	title: String!
-	content: String!
-}
-
-type Comment {
-	id: ID! @unique
-
-	user: User! @relation(name: "CommentToUser")
-	post: Post! @relation(name: "CommentToPost")
-
-	createdAt: DateTime!
-
-	text: String!
+	name: String!
 }

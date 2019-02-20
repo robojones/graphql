@@ -2,30 +2,7 @@ mutation {
 	user1: createUser(data: {
 		email: "alice@prisma.io"
 		name: "Alice"
-		posts: {
-			create: [{
-				title: "(1) Join us for GraphQL Conf 2019 in Berlin"
-				content: "https://www.graphqlconf.org/"
-				published: true
-				comments: {
-					create: [{
-						text: "Comment on first post haha!"
-						user: {
-							connect: {
-								email: "alice@prisma.io"
-							}
-						}
-					}, {
-						text: "another comment on first post"
-						user: {
-							connect: {
-								email: "alice@prisma.io"
-							}
-						}
-					}]
-				}
-			}]
-		}
+		passwordHash: "test"
 	}) {
 		id
 	}
@@ -33,51 +10,7 @@ mutation {
 	user2: createUser(data: {
 		email: "bob@prisma.io"
 		name: "Bob"
-		posts: {
-			create: [{
-				title: "(2) Subscribe to GraphQL Weekly for community news"
-				content: "https://graphqlweekly.com/"
-				published: true
-				comments: {
-					create: [{
-						text: "yay!"
-						user: {
-							connect: {
-								email: "bob@prisma.io"
-							}
-						}
-					}, {
-						text: "hihihi"
-						user: {
-							connect: {
-								email: "bob@prisma.io"
-							}
-						}
-					}]
-				}
-			}, {
-				title: "(3) Follow Prisma on Twitter"
-				content: "https://twitter.com/prisma"
-				published: true
-				comments: {
-					create: [{
-						text: "asdf!"
-						user: {
-							connect: {
-								email: "bob@prisma.io"
-							}
-						}
-					}, {
-						text: "gaj"
-						user: {
-							connect: {
-								email: "bob@prisma.io"
-							}
-						}
-					}]
-				}
-			}]
-		}
+		passwordHash: "test"
 	}) {
 		id
 	}

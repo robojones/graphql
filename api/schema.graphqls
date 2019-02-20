@@ -1,42 +1,19 @@
 scalar DateTime
 
 type Query {
-	feed: [Post!]!
-	filterPosts(searchString: String!): [Post!]!
-	post(id: ID!): Post
+	user: User!
 }
 
 type Mutation {
 	signupUser(email: String!, name: String!): User!
-	createDraft(title: String!, content: String!, authorEmail: String!): Post!
-	deletePost(id: ID!): Post
-	publish(id: ID!): Post
-}
-
-type Post {
-	id: ID!
-	user: User!
-
-	createdAt: DateTime!
-	updatedAt: DateTime!
-	published: Boolean!
-	title: String!
-	content: String!
-	comments: [Comment!]!
+	loginUser(email: String!, password: String!): User!
 }
 
 type User {
 	id: ID!
-	posts: [Post!]!
-	comments: [Comment!]!
 	email: String!
-	name: String!
-}
 
-type Comment {
-	id: ID!
+	name: String!
 	createdAt: DateTime!
-	text: String!
-	user: User!
-	post: Post!
+	updatedAt: DateTime!
 }

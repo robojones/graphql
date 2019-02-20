@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/robojones/graphql/api"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/99designs/gqlgen/handler"
-	"github.com/robojones/graphql/prisma-client"
+	"github.com/robojones/graphql/api"
+	"github.com/robojones/graphql/gqlgen"
+	"github.com/robojones/graphql/prisma"
 )
 
 const defaultPort = "4000"
@@ -28,7 +29,7 @@ func main() {
 	}
 
 	http.Handle("/", handler.Playground("GraphQL Playground", "/query"))
-	http.Handle("/query", handler.GraphQL(api.NewExecutableSchema(api.Config{Resolvers: &resolver})))
+	http.Handle("/query", handler.GraphQL(gqlgen.NewExecutableSchema(gqlgen.Config{Resolvers: &resolver})))
 
 	log.Printf("Server is running on http://localhost:%s", port)
 	err := http.ListenAndServe(":"+port, nil)
