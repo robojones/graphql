@@ -24,12 +24,10 @@ func main() {
 		Secret:   "",
 	})
 
-	resolver := api.Resolver{
-		Prisma: client,
-	}
+	resolver := api.New(client)
 
 	http.Handle("/", handler.Playground("GraphQL Playground", "/query"))
-	http.Handle("/query", handler.GraphQL(gqlgen.NewExecutableSchema(gqlgen.Config{Resolvers: &resolver})))
+	http.Handle("/query", handler.GraphQL(gqlgen.NewExecutableSchema(gqlgen.Config{Resolvers: resolver})))
 
 	log.Printf("Server is running on http://localhost:%s", port)
 	err := http.ListenAndServe(":"+port, nil)

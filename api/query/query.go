@@ -2,14 +2,15 @@ package query
 
 import (
 	"context"
+	"github.com/robojones/graphql/api/super"
 	"github.com/robojones/graphql/prisma"
 )
 
-type QueryResolver struct {
-
+type Resolver struct {
+	*super.Resolver
 }
 
-func (*QueryResolver) User(ctx context.Context) (prisma.User, error) {
+func (*Resolver) User(ctx context.Context) (prisma.User, error) {
 	return prisma.User{
 		Email: "hi",
 	}, nil
