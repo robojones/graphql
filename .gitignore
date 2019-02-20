@@ -1,3 +1,4 @@
 server/generated.go
 prisma-client/prisma.go
 vendor/
+.idea/
