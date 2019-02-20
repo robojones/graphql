@@ -3,13 +3,13 @@
 # Refer to https://gqlgen.com/config/
 # for detailed .gqlgen.yml documentation.
 
-schema: server/schema.graphqls
+schema: api/schema.graphqls
 exec:
-  filename: server/generated.go
+  filename: api/generated.go
 models:
   Post:
-    model: github.com/steebchen/graphql/prisma-client.Post
+    model: github.com/robojones/graphql/prisma-client.Post
   User:
-    model: github.com/steebchen/graphql/prisma-client.User
+    model: github.com/robojones/graphql/prisma-client.User
   Comment:
-    model: github.com/steebchen/graphql/prisma-client.Comment
+    model: github.com/robojones/graphql/prisma-client.Comment

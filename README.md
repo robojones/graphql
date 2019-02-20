@@ -9,7 +9,7 @@ This example shows how to implement a **GraphQL server with Golang** based on Pr
 Clone the repository:
 
 ```
-git clone git@github.com:steebchen/graphql.git
+git clone git@github.com:robojones/graphql.git
 ```
 
 Ensure dependencies are available and up-to-date:

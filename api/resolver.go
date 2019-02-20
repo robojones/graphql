@@ -1,8 +1,8 @@
-package main
+package api
 
 import (
 	"context"
-	"github.com/steebchen/graphql/prisma-client"
+	"github.com/robojones/graphql/prisma-client"
 )
 
 type Resolver struct {
