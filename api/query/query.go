@@ -10,9 +10,12 @@ type Resolver struct {
 	*super.Resolver
 }
 
-func (*Resolver) User(ctx context.Context) (prisma.User, error) {
-	return prisma.User{
-		Email: "hi",
-	}, nil
-}
+func (r *Resolver) User(ctx context.Context) (prisma.User, error) {
+	email := "alice@prisma.io"
 
+	user, err := r.Prisma.User(prisma.UserWhereUniqueInput{
+		Email: &email,
+	}).Exec(ctx)
+
+	return *user, err
+}

@@ -7,7 +7,7 @@ import (
 	"github.com/robojones/graphql/prisma"
 )
 
-func New(client *prisma.Client) *Resolver{
+func New(client *prisma.Client) *Resolver {
 	return &Resolver{
 		&super.Resolver{
 			Prisma: client,
@@ -19,11 +19,10 @@ type Resolver struct {
 	*super.Resolver
 }
 
-func (*Resolver) Mutation() gqlgen.MutationResolver {
+func (r *Resolver) Mutation() gqlgen.MutationResolver {
 	panic("implement me")
 }
 
-func (*Resolver) Query() gqlgen.QueryResolver {
-	return &query.Resolver{}
+func (r *Resolver) Query() gqlgen.QueryResolver {
+	return &query.Resolver{Resolver: r.Resolver}
 }
-
