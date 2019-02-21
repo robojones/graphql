@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/robojones/graphql/server/auth"
+	"github.com/robojones/graphql/server/handler_adapter"
 	"log"
 	"net/http"
 	"os"
@@ -27,7 +29,13 @@ func main() {
 	resolver := api.New(client)
 
 	http.Handle("/", handler.Playground("GraphQL Playground", "/query"))
-	http.Handle("/query", handler.GraphQL(gqlgen.NewExecutableSchema(gqlgen.Config{Resolvers: resolver})))
+	schema := gqlgen.NewExecutableSchema(gqlgen.Config{Resolvers: resolver})
+	http.Handle("/query", &auth.Handler{
+		Prisma: client,
+		Next: &handler_adapter.HandlerFuncAdapter{
+			NextFunc: handler.GraphQL(schema),
+		},
+	})
 
 	log.Printf("Server is running on http://localhost:%s", port)
 	err := http.ListenAndServe(":"+port, nil)

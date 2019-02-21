@@ -143,6 +143,7 @@
     "github.com/99designs/gqlgen/graphql/introspection",
     "github.com/99designs/gqlgen/handler",
     "github.com/machinebox/graphql",
+    "github.com/pkg/errors",
     "github.com/prisma/prisma-client-lib-go",
     "github.com/vektah/gqlparser",
     "github.com/vektah/gqlparser/ast",

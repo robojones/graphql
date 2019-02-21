@@ -6,5 +6,16 @@ type User {
 	createdAt: DateTime!
 	updatedAt: DateTime!
 
+	sessions: [Session!]! @relation(name: "SessionToUser", onDelete: CASCADE)
+
 	name: String!
+}
+
+type Session {
+	id: ID! @unique
+	token: String! @unique
+	user: User! @relation(name: "SessionToUser")
+
+	createdAt: DateTime!
+	updatedAt: DateTime!
 }

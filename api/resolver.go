@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/robojones/graphql/api/mutation"
 	"github.com/robojones/graphql/api/query"
 	"github.com/robojones/graphql/api/super"
 	"github.com/robojones/graphql/gqlgen"
@@ -9,7 +10,7 @@ import (
 
 func New(client *prisma.Client) *Resolver {
 	return &Resolver{
-		&super.Resolver{
+		Resolver: &super.Resolver{
 			Prisma: client,
 		},
 	}
@@ -20,7 +21,7 @@ type Resolver struct {
 }
 
 func (r *Resolver) Mutation() gqlgen.MutationResolver {
-	panic("implement me")
+	return &mutation.Mutation{Resolver: r.Resolver}
 }
 
 func (r *Resolver) Query() gqlgen.QueryResolver {
