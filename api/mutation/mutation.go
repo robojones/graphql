@@ -10,6 +10,6 @@ type Mutation struct {
 	*super.Resolver
 }
 
-func (*Mutation) SignupUser(ctx context.Context, email string, name string) (prisma.User, error) {
+func (*Mutation) Signup(ctx context.Context, email string, name string) (prisma.User, error) {
 	panic("implement me")
 }

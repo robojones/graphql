@@ -4,9 +4,10 @@ import (
 	"context"
 	"github.com/robojones/graphql/prisma"
 	"github.com/robojones/graphql/server/auth"
+	"github.com/robojones/graphql/server/session_cookie"
 )
 
-func (m *Mutation) LoginUser(ctx context.Context, email string, password string) (prisma.User, error) {
+func (m *Mutation) Login(ctx context.Context, email string, password string) (prisma.User, error) {
 	user, err := m.Prisma.User(prisma.UserWhereUniqueInput{
 		Email: &email,
 	}).Exec(ctx)
@@ -27,7 +28,7 @@ func (m *Mutation) LoginUser(ctx context.Context, email string, password string)
 		Token: auth.GenerateToken(),
 	}).Exec(ctx)
 
-	auth.ApplySession(ctx, session)
+	session_cookie.Set(ctx, session)
 
 	return *user, nil
 }

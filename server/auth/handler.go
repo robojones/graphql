@@ -1,14 +1,12 @@
 package auth
 
 import (
-	"context"
 	"github.com/robojones/graphql/prisma"
+	"github.com/robojones/graphql/server/session_context"
 	"net/http"
 )
 
 const CookieKey = "session"
-const UserContextKey = "user"
-const ResponseContextKey = "r"
 
 type Handler struct {
 	Prisma *prisma.Client
@@ -17,7 +15,7 @@ type Handler struct {
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	cookie, err := r.Cookie(CookieKey)
-	ctx := context.WithValue(r.Context(), ResponseContextKey, w)
+	ctx := session_context.SetWriter(r.Context(), w)
 
 	if err == http.ErrNoCookie {
 		h.Next.ServeHTTP(w, r.WithContext(ctx))
@@ -37,12 +35,13 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if user == nil {
-		// session expired
+		// session removed or invalid
 		h.Next.ServeHTTP(w, r.WithContext(ctx))
 		return
 	}
 
-	ctx = context.WithValue(ctx, UserContextKey, user)
+	ctx = session_context.SetToken(ctx, token)
+	ctx = session_context.SetUser(ctx, user)
 
 	h.Next.ServeHTTP(w, r.WithContext(ctx))
 }
