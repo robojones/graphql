@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/robojones/graphql/server/auth"
-	"github.com/robojones/graphql/server/handler_adapter"
+	"github.com/robojones/graphql/lib/auth"
+	"github.com/robojones/graphql/lib/handler_adapter"
 	"log"
 	"net/http"
 	"os"

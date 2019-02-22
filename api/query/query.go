@@ -3,8 +3,8 @@ package query
 import (
 	"context"
 	"github.com/robojones/graphql/api/super"
+	"github.com/robojones/graphql/lib/session_context"
 	"github.com/robojones/graphql/prisma"
-	"github.com/robojones/graphql/server/session_context"
 )
 
 type Resolver struct {

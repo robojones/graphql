@@ -2,9 +2,9 @@ package mutation
 
 import (
 	"context"
+	"github.com/robojones/graphql/lib/session_context"
+	"github.com/robojones/graphql/lib/session_cookie"
 	"github.com/robojones/graphql/prisma"
-	"github.com/robojones/graphql/server/session_context"
-	"github.com/robojones/graphql/server/session_cookie"
 )
 
 func (m *Mutation) Logout(ctx context.Context) (prisma.User, error) {
