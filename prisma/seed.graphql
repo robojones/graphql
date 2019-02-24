@@ -2,7 +2,7 @@ mutation {
 	user1: createUser(data: {
 		email: "alice@prisma.io"
 		name: "Alice"
-		passwordHash: "test"
+		passwordHash: "$2a$10$pS6PFql.jL9wug/SACqn4uQTgJt.01/GyflQ6KUvjFE9Qd9ao3u32"
 	}) {
 		id
 	}
@@ -10,7 +10,7 @@ mutation {
 	user2: createUser(data: {
 		email: "bob@prisma.io"
 		name: "Bob"
-		passwordHash: "test"
+		passwordHash: "$2a$10$pS6PFql.jL9wug/SACqn4uQTgJt.01/GyflQ6KUvjFE9Qd9ao3u32"
 	}) {
 		id
 	}

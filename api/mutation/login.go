@@ -6,9 +6,11 @@ import (
 	"github.com/robojones/graphql/lib/auth"
 	"github.com/robojones/graphql/lib/session_cookie"
 	"github.com/robojones/graphql/prisma"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var UserNotFoundError = errors.New("user not found")
+var IncorrectPasswordError = errors.New("password is incorrect")
 
 func (m *Mutation) Login(ctx context.Context, email string, password string) (prisma.User, error) {
 	user, err := m.Prisma.User(prisma.UserWhereUniqueInput{
@@ -23,7 +25,10 @@ func (m *Mutation) Login(ctx context.Context, email string, password string) (pr
 		return prisma.User{}, UserNotFoundError
 	}
 
-	// TODO: verify password
+	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password))
+	if err != nil {
+		return prisma.User{}, IncorrectPasswordError
+	}
 
 	session, err := m.Prisma.CreateSession(prisma.SessionCreateInput{
 		User: prisma.UserCreateOneWithoutSessionsInput{
