@@ -2,10 +2,13 @@ package mutation
 
 import (
 	"context"
+	"github.com/pkg/errors"
 	"github.com/robojones/graphql/lib/auth"
 	"github.com/robojones/graphql/lib/session_cookie"
 	"github.com/robojones/graphql/prisma"
 )
+
+var UserNotFoundError = errors.New("user not found")
 
 func (m *Mutation) Login(ctx context.Context, email string, password string) (prisma.User, error) {
 	user, err := m.Prisma.User(prisma.UserWhereUniqueInput{
@@ -13,11 +16,14 @@ func (m *Mutation) Login(ctx context.Context, email string, password string) (pr
 	}).Exec(ctx)
 
 	if err != nil {
-		return *user, err
+		return prisma.User{}, err
+	}
+
+	if user == nil {
+		return prisma.User{}, UserNotFoundError
 	}
 
 	// TODO: verify password
-	// TODO: handle user == nil
 
 	session, err := m.Prisma.CreateSession(prisma.SessionCreateInput{
 		User: prisma.UserCreateOneWithoutSessionsInput{
