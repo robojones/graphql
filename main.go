@@ -1,3 +1,6 @@
+//go:generate prisma generate
+//go:generate go run gqlgen/cmd.go -c gqlgen/gqlgen.yml
+
 package main
 
 import (

@@ -6,6 +6,9 @@
 schema: api/schema.graphqls
 exec:
   filename: gqlgen/gqlgen.go
+model:
+  filename: gqlgen/models.go
+  package: gqlgen
 models:
   User:
     model: github.com/robojones/graphql/prisma.User
