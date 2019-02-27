@@ -31,14 +31,14 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Token: &token,
 	}).User().Exec(r.Context())
 
-	if err != nil {
-		panic(err)
-	}
-
-	if user == nil {
+	if err == prisma.ErrNoResult {
 		// session removed or invalid
 		h.Next.ServeHTTP(w, r.WithContext(ctx))
 		return
+	}
+
+	if err != nil {
+		panic(err)
 	}
 
 	ctx = session_context.SetToken(ctx, token)
