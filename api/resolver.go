@@ -8,16 +8,16 @@ import (
 	"github.com/robojones/graphql/prisma"
 )
 
+type Resolver struct {
+	*super.Resolver
+}
+
 func New(client *prisma.Client) *Resolver {
 	return &Resolver{
 		Resolver: &super.Resolver{
 			Prisma: client,
 		},
 	}
-}
-
-type Resolver struct {
-	*super.Resolver
 }
 
 func (r *Resolver) Mutation() gqlgen.MutationResolver {

@@ -3,6 +3,7 @@ package mutation
 import (
 	"github.com/robojones/graphql/api/mutation/auth"
 	"github.com/robojones/graphql/api/super"
+	"github.com/robojones/graphql/gqlgen"
 )
 
 type Mutation struct {
@@ -10,7 +11,7 @@ type Mutation struct {
 	*auth.Auth
 }
 
-func New(super *super.Resolver) *Mutation {
+func New(super *super.Resolver) gqlgen.MutationResolver {
 	return &Mutation{
 		Resolver: super,
 		Auth:     auth.New(super),
