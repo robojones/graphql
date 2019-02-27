@@ -2,15 +2,21 @@ package auth
 
 import (
 	"context"
-	"github.com/pkg/errors"
 	"github.com/robojones/graphql/gqlgen"
 	"github.com/robojones/graphql/prisma"
+	"github.com/vektah/gqlparser/gqlerror"
 	"golang.org/x/crypto/bcrypt"
 )
 
 const duplicateEmailErrorMessage = "graphql: A unique constraint would be violated on User. Details: Field name = email"
 
-var DuplicateEmailError = errors.New("Email already used for another account")
+var DuplicateEmailError = &gqlerror.Error{
+	Message: "Email already used for another account",
+	Extensions: map[string]interface{}{
+		"type": "Auth",
+		"code": "DuplicateEmail",
+	},
+}
 
 func hashPassword(password string) string {
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)

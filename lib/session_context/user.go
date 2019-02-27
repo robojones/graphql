@@ -2,13 +2,19 @@ package session_context
 
 import (
 	"context"
-	"github.com/pkg/errors"
 	"github.com/robojones/graphql/prisma"
+	"github.com/vektah/gqlparser/gqlerror"
 )
 
 const UserContextKey = "user"
 
-var UserNotLoggedInError = errors.Errorf("user not logged in")
+var UserNotLoggedInError = &gqlerror.Error{
+	Message: "user not logged in",
+	Extensions: map[string]interface{}{
+		"type": "Auth",
+		"name": "NotLoggedIn",
+	},
+}
 
 // SetUser returns a context that includes the user value.
 func SetUser(ctx context.Context, user *prisma.User) context.Context {
