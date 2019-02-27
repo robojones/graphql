@@ -1,4 +1,4 @@
-package mutation
+package auth
 
 import (
 	"context"
@@ -13,8 +13,8 @@ import (
 var UserNotFoundError = errors.New("user not found")
 var IncorrectPasswordError = errors.New("password is incorrect")
 
-func (m *Mutation) Login(ctx context.Context, email string, password string) (gqlgen.LoginResult, error) {
-	user, err := m.Prisma.User(prisma.UserWhereUniqueInput{
+func (a *Auth) Login(ctx context.Context, email string, password string) (gqlgen.LoginResult, error) {
+	user, err := a.Prisma.User(prisma.UserWhereUniqueInput{
 		Email: &email,
 	}).Exec(ctx)
 
@@ -31,7 +31,7 @@ func (m *Mutation) Login(ctx context.Context, email string, password string) (gq
 		return gqlgen.LoginResult{}, IncorrectPasswordError
 	}
 
-	session, err := m.Prisma.CreateSession(prisma.SessionCreateInput{
+	session, err := a.Prisma.CreateSession(prisma.SessionCreateInput{
 		User: prisma.UserCreateOneWithoutSessionsInput{
 			Connect: &prisma.UserWhereUniqueInput{
 				ID: &user.ID,

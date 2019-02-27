@@ -1,4 +1,4 @@
-package mutation
+package auth
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"github.com/robojones/graphql/prisma"
 )
 
-func (m *Mutation) Logout(ctx context.Context) (gqlgen.LogoutResult, error) {
+func (a *Auth) Logout(ctx context.Context) (gqlgen.LogoutResult, error) {
 
 	session_cookie.Unset(ctx)
 
@@ -18,7 +18,7 @@ func (m *Mutation) Logout(ctx context.Context) (gqlgen.LogoutResult, error) {
 		return gqlgen.LogoutResult{}, err
 	}
 
-	_, err = m.Prisma.DeleteSession(prisma.SessionWhereUniqueInput{
+	_, err = a.Prisma.DeleteSession(prisma.SessionWhereUniqueInput{
 		Token: &token,
 	}).Exec(ctx)
 

@@ -21,9 +21,9 @@ type Resolver struct {
 }
 
 func (r *Resolver) Mutation() gqlgen.MutationResolver {
-	return &mutation.Mutation{Resolver: r.Resolver}
+	return mutation.New(r.Resolver)
 }
 
 func (r *Resolver) Query() gqlgen.QueryResolver {
-	return &query.Resolver{Resolver: r.Resolver}
+	return query.New(r.Resolver)
 }
