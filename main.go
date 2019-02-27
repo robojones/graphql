@@ -4,25 +4,21 @@
 package main
 
 import (
-	"github.com/robojones/graphql/lib/auth"
-	"github.com/robojones/graphql/lib/handler_adapter"
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/99designs/gqlgen/handler"
 	"github.com/robojones/graphql/api"
 	"github.com/robojones/graphql/gqlgen"
+	"github.com/robojones/graphql/lib/auth"
+	"github.com/robojones/graphql/lib/config"
+	"github.com/robojones/graphql/lib/handler_adapter"
 	"github.com/robojones/graphql/prisma"
+	"log"
+	"net/http"
 )
 
 const defaultPort = "4000"
 
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = defaultPort
-	}
+	port := config.GetOrDefault(config.Port, defaultPort)
 
 	client := prisma.New(&prisma.Options{
 		Endpoint: "http://localhost:4466/graphql/dev",
