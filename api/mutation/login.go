@@ -3,6 +3,7 @@ package mutation
 import (
 	"context"
 	"github.com/pkg/errors"
+	"github.com/robojones/graphql/gqlgen"
 	"github.com/robojones/graphql/lib/auth"
 	"github.com/robojones/graphql/lib/session_cookie"
 	"github.com/robojones/graphql/prisma"
@@ -12,22 +13,22 @@ import (
 var UserNotFoundError = errors.New("user not found")
 var IncorrectPasswordError = errors.New("password is incorrect")
 
-func (m *Mutation) Login(ctx context.Context, email string, password string) (prisma.User, error) {
+func (m *Mutation) Login(ctx context.Context, email string, password string) (gqlgen.LoginResult, error) {
 	user, err := m.Prisma.User(prisma.UserWhereUniqueInput{
 		Email: &email,
 	}).Exec(ctx)
 
-	if err != nil {
-		return prisma.User{}, err
+	if err == prisma.ErrNoResult {
+		return gqlgen.LoginResult{}, UserNotFoundError
 	}
 
-	if user == nil {
-		return prisma.User{}, UserNotFoundError
+	if err != nil {
+		panic(err)
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password))
 	if err != nil {
-		return prisma.User{}, IncorrectPasswordError
+		return gqlgen.LoginResult{}, IncorrectPasswordError
 	}
 
 	session, err := m.Prisma.CreateSession(prisma.SessionCreateInput{
@@ -41,5 +42,8 @@ func (m *Mutation) Login(ctx context.Context, email string, password string) (pr
 
 	session_cookie.Set(ctx, session)
 
-	return *user, nil
+	return gqlgen.LoginResult{
+		Session: *session,
+		User:    *user,
+	}, nil
 }

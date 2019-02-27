@@ -12,3 +12,5 @@ model:
 models:
   User:
     model: github.com/robojones/graphql/prisma.User
+  Session:
+    model: github.com/robojones/graphql/prisma.Session

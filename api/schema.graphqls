@@ -5,9 +5,9 @@ type Query {
 }
 
 type Mutation {
-	signup(email: String!, name: String!): User!
-	login(email: String!, password: String!): User!
-	logout: User!
+	signup(email: String!, name: String!, password: String!): LoginResult!
+	login(email: String!, password: String!): LoginResult!
+	logout: LogoutResult!
 }
 
 type User {
@@ -18,3 +18,18 @@ type User {
 	createdAt: DateTime!
 	updatedAt: DateTime!
 }
+
+type Session {
+	id: ID!
+	token: String!
+}
+
+type LoginResult {
+	session: Session!
+	user: User!
+}
+
+type LogoutResult {
+	user: User!
+}
+
