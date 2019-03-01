@@ -2,18 +2,17 @@ package query
 
 import (
 	"context"
-	"github.com/robojones/graphql/api/super"
 	"github.com/robojones/graphql/lib/session_context"
 	"github.com/robojones/graphql/prisma"
 )
 
 type Resolver struct {
-	*super.Resolver
+	Prisma *prisma.Client
 }
 
-func New(super *super.Resolver) *Resolver {
+func New(client *prisma.Client) *Resolver {
 	return &Resolver{
-		Resolver: super,
+		Prisma: client,
 	}
 }
 

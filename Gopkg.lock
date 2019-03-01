@@ -28,12 +28,28 @@
   version = "v1.0.1"
 
 [[projects]]
+  digest = "1:a571648c5f1a3f20fa405d1cf924b941c5bb236ea6d0565a63c0994e38dd8f82"
+  name = "github.com/caarlos0/env"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "518fcfb943252f77846f92ce5794086d9cb4a1b5"
+  version = "v3.5.0"
+
+[[projects]]
   digest = "1:76dc72490af7174349349838f2fe118996381b31ea83243812a97e5a0fd5ed55"
   name = "github.com/dgrijalva/jwt-go"
   packages = ["."]
   pruneopts = "UT"
   revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
   version = "v3.2.0"
+
+[[projects]]
+  digest = "1:3c4df6e0ec96b9dec76f15e0bcad888fa268ee6404d1cdcaf90d7567e32a8f73"
+  name = "github.com/google/wire"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "9a7ae3ba6b734d831e88c75966fd5e9c0abdeace"
+  version = "v0.2.1"
 
 [[projects]]
   digest = "1:7b5c6e2eeaa9ae5907c391a91c132abfd5c9e8a784a341b5625e750c67e6825d"
@@ -153,11 +169,14 @@
     "github.com/99designs/gqlgen/graphql",
     "github.com/99designs/gqlgen/graphql/introspection",
     "github.com/99designs/gqlgen/handler",
+    "github.com/caarlos0/env",
+    "github.com/google/wire",
     "github.com/machinebox/graphql",
     "github.com/pkg/errors",
     "github.com/prisma/prisma-client-lib-go",
     "github.com/vektah/gqlparser",
     "github.com/vektah/gqlparser/ast",
+    "github.com/vektah/gqlparser/gqlerror",
     "golang.org/x/crypto/bcrypt",
   ]
   solver-name = "gps-cdcl"

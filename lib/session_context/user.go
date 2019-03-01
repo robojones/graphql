@@ -11,7 +11,7 @@ const UserContextKey = "user"
 var UserNotLoggedInError = &gqlerror.Error{
 	Message: "user not logged in",
 	Extensions: map[string]interface{}{
-		"type": "Auth",
+		"type": "Resolver",
 		"name": "NotLoggedIn",
 	},
 }

@@ -1,4 +1,4 @@
-package session_cookie
+package auth
 
 import (
 	"context"
@@ -10,8 +10,8 @@ import (
 
 const CookieKey = "session"
 
-// Set the cookie for the session
-func Set(ctx context.Context, session *prisma.Session) {
+// SetCookie the cookie for the session
+func SetCookie(ctx context.Context, session *prisma.Session) {
 	w := session_context.Writer(ctx)
 
 	cookie := &http.Cookie{
@@ -21,6 +21,18 @@ func Set(ctx context.Context, session *prisma.Session) {
 		// TODO: Secure: env.Env == env.Production,
 		Expires:  time.Now().AddDate(1, 0, 0),
 		SameSite: http.SameSiteStrictMode,
+	}
+
+	http.SetCookie(w, cookie)
+}
+
+// UnsetCookie the session cookie
+func UnsetCookie(ctx context.Context) {
+	w := session_context.Writer(ctx)
+
+	cookie := &http.Cookie{
+		Name:   CookieKey,
+		MaxAge: -1,
 	}
 
 	http.SetCookie(w, cookie)

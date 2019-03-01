@@ -3,9 +3,9 @@ package auth
 import (
 	"context"
 	"github.com/robojones/graphql/gqlgen"
+	"github.com/robojones/graphql/lib/auth"
 	"github.com/robojones/graphql/prisma"
 	"github.com/vektah/gqlparser/gqlerror"
-	"golang.org/x/crypto/bcrypt"
 )
 
 const duplicateEmailErrorMessage = "graphql: A unique constraint would be violated on User. Details: Field name = email"
@@ -18,28 +18,18 @@ var DuplicateEmailError = &gqlerror.Error{
 	},
 }
 
-func hashPassword(password string) string {
-	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return string(hash)
-}
-
 func (a *Auth) Signup(ctx context.Context, email string, name string, password string) (gqlgen.LoginResult, error) {
 	_, err := a.Prisma.CreateUser(prisma.UserCreateInput{
 		Name:         name,
 		Email:        email,
-		PasswordHash: hashPassword(password),
+		PasswordHash: auth.HashPassword(password),
 	}).Exec(ctx)
 
-	if err.Error() == duplicateEmailErrorMessage {
-		return gqlgen.LoginResult{}, DuplicateEmailError
-	}
-
 	if err != nil {
+		if err.Error() == duplicateEmailErrorMessage {
+			return gqlgen.LoginResult{}, DuplicateEmailError
+		}
+
 		panic(err)
 	}
 

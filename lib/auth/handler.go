@@ -2,12 +2,9 @@ package auth
 
 import (
 	"github.com/robojones/graphql/lib/session_context"
-	"github.com/robojones/graphql/lib/session_cookie"
 	"github.com/robojones/graphql/prisma"
 	"net/http"
 )
-
-const CookieKey = "session"
 
 type Handler struct {
 	Prisma *prisma.Client
@@ -44,7 +41,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx = session_context.SetToken(ctx, token)
 	ctx = session_context.SetUser(ctx, user)
 
-	session_cookie.Set(ctx, &prisma.Session{
+	SetCookie(ctx, &prisma.Session{
 		Token: token,
 	})
 
