@@ -23,13 +23,13 @@ var IncorrectPasswordError = &gqlerror.Error{
 	},
 }
 
-func (a *Auth) Login(ctx context.Context, email string, password string) (gqlgen.LoginResult, error) {
+func (a *Auth) Login(ctx context.Context, email string, password string) (*gqlgen.LoginResult, error) {
 	user, err := a.Prisma.User(prisma.UserWhereUniqueInput{
 		Email: &email,
 	}).Exec(ctx)
 
 	if err == prisma.ErrNoResult {
-		return gqlgen.LoginResult{}, UserNotFoundError
+		return nil, UserNotFoundError
 	}
 
 	if err != nil {
@@ -38,7 +38,7 @@ func (a *Auth) Login(ctx context.Context, email string, password string) (gqlgen
 
 	err = auth.VerifyPassword(user.PasswordHash, password)
 	if err != nil {
-		return gqlgen.LoginResult{}, IncorrectPasswordError
+		return nil, IncorrectPasswordError
 	}
 
 	session, err := a.Prisma.CreateSession(prisma.SessionCreateInput{
@@ -56,7 +56,7 @@ func (a *Auth) Login(ctx context.Context, email string, password string) (gqlgen
 
 	auth.SetCookie(ctx, session)
 
-	return gqlgen.LoginResult{
+	return &gqlgen.LoginResult{
 		Session: *session,
 		User:    *user,
 	}, nil

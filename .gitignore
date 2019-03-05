@@ -2,5 +2,4 @@ gqlgen/gqlgen.go
 gqlgen/models.go
 prisma/prisma.go
 *_gen.go
-vendor/
 .idea/

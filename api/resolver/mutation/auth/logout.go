@@ -8,14 +8,14 @@ import (
 	"github.com/robojones/graphql/prisma"
 )
 
-func (a *Auth) Logout(ctx context.Context) (gqlgen.LogoutResult, error) {
+func (a *Auth) Logout(ctx context.Context) (*gqlgen.LogoutResult, error) {
 
 	auth.UnsetCookie(ctx)
 
 	token, err := session_context.Token(ctx)
 
 	if err != nil {
-		return gqlgen.LogoutResult{}, err
+		return nil, err
 	}
 
 	_, err = a.Prisma.DeleteSession(prisma.SessionWhereUniqueInput{
@@ -32,7 +32,7 @@ func (a *Auth) Logout(ctx context.Context) (gqlgen.LogoutResult, error) {
 		panic(err)
 	}
 
-	return gqlgen.LogoutResult{
+	return &gqlgen.LogoutResult{
 		User: *user,
 	}, err
 }

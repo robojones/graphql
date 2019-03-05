@@ -18,7 +18,7 @@ var DuplicateEmailError = &gqlerror.Error{
 	},
 }
 
-func (a *Auth) Signup(ctx context.Context, email string, name string, password string) (gqlgen.LoginResult, error) {
+func (a *Auth) Signup(ctx context.Context, email string, name string, password string) (*gqlgen.LoginResult, error) {
 	_, err := a.Prisma.CreateUser(prisma.UserCreateInput{
 		Name:         name,
 		Email:        email,
@@ -27,7 +27,7 @@ func (a *Auth) Signup(ctx context.Context, email string, name string, password s
 
 	if err != nil {
 		if err.Error() == duplicateEmailErrorMessage {
-			return gqlgen.LoginResult{}, DuplicateEmailError
+			return nil, DuplicateEmailError
 		}
 
 		panic(err)

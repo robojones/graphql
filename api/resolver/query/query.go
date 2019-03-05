@@ -16,12 +16,6 @@ func New(client *prisma.Client) *Resolver {
 	}
 }
 
-func (r *Resolver) User(ctx context.Context) (prisma.User, error) {
-	user, err := session_context.User(ctx)
-
-	if err != nil {
-		return prisma.User{}, err
-	}
-
-	return *user, err
+func (r *Resolver) User(ctx context.Context) (*prisma.User, error) {
+	return session_context.User(ctx)
 }
