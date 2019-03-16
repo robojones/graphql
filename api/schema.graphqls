@@ -3,9 +3,34 @@ type Query {
 }
 
 type Mutation {
-	signup(email: String!, name: String!, password: String!): LoginResult!
-	login(email: String!, password: String!): LoginResult!
+	signup(params: SignupInput!): SignupPayload!
+	login(params: LoginInput!): LoginPayload!
 	logout: LogoutResult!
+}
+
+input SignupInput {
+	email: String!
+	name: String!
+	password: String!
+}
+
+input LoginInput {
+	email: String!
+	password: String!
+}
+
+type SignupPayload {
+	session: Session!
+	user: User!
+}
+
+type LoginPayload {
+	session: Session!
+	user: User!
+}
+
+type LogoutResult {
+	user: User!
 }
 
 type User {
@@ -21,13 +46,3 @@ type Session {
 	id: ID!
 	token: String!
 }
-
-type LoginResult {
-	session: Session!
-	user: User!
-}
-
-type LogoutResult {
-	user: User!
-}
-
