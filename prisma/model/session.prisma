@@ -1,0 +1,8 @@
+type Session {
+	id: ID! @unique
+	token: String! @unique
+	user: User! @relation(name: "SessionToUser")
+
+	createdAt: DateTime!
+	updatedAt: DateTime!
+}

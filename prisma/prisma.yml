@@ -2,7 +2,10 @@
 endpoint: http://localhost:4466/graphql/dev
 
 # Defines your models, each model is mapped to the database as a table.
-datamodel: datamodel.prisma
+datamodel:
+  - shared.graphqls
+  - model/session.prisma
+  - model/user.prisma
 
 # Specifies the language and directory for the generated Prisma client.
 generate:

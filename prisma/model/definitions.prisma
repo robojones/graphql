@@ -1,0 +1,8 @@
+directive @unique on FIELD_DEFINITION
+directive @relation(name: String!, onDelete: DeleteBehavior) on FIELD_DEFINITION
+
+scalar DateTime
+
+enum DeleteBehavior {
+	CASCADE
+}
