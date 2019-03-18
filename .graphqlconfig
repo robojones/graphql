@@ -1,0 +1,32 @@
+{
+	"projects": {
+		"graphql": {
+			"includes": [
+				"api/**/*.graphql",
+				"api/**/*.graphqls",
+				"prisma/shared.graphqls"
+			],
+			"extensions": {
+				"endpoints": {
+					"graphql": {
+						"url": "http://localhost:4000/graphql"
+					}
+				}
+			}
+		},
+		"prisma": {
+			"includes": [
+				"prisma/**/*.graphql",
+				"prisma/**/*.prisma",
+				"prisma/**/*.graphqls"
+			],
+			"extensions": {
+				"endpoints": {
+					"prisma": {
+						"url": "http://localhost:4466/graphql/dev"
+					}
+				}
+			}
+		}
+	}
+}
