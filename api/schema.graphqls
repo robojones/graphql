@@ -1,10 +1,25 @@
+directive @can(operation: Operation!, scope: Scope) on FIELD_DEFINITION | QUERY | MUTATION
+
+enum Operation {
+	CREATE
+	READ
+	UPDATE
+	WRITE
+}
+
+enum Scope {
+	PROJECT
+	SCHEMA
+	PAGE
+}
+
 type Query {
 	user: User!
 }
 
 type Mutation {
-	signup(params: SignupInput!): SignupPayload!
-	login(params: LoginInput!): LoginPayload!
+	signup(input: SignupInput!): SignupPayload!
+	login(input: LoginInput!): LoginPayload!
 	logout: LogoutResult!
 }
 
