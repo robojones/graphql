@@ -1,0 +1,2 @@
+*.graphqls linguist-language=GraphQL
+*.prisma linguist-language=GraphQL
