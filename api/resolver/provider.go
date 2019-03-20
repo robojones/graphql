@@ -1,17 +1,16 @@
-package api
+package resolver
 
 import (
 	"github.com/google/wire"
 	"github.com/robojones/graphql/api/resolver/mutation"
-	"github.com/robojones/graphql/api/resolver/mutation/auth"
+	"github.com/robojones/graphql/api/resolver/project"
 	"github.com/robojones/graphql/api/resolver/query"
 	"github.com/robojones/graphql/api/resolver/root"
 )
 
-var Providers = wire.NewSet(
-	auth.New,
-	mutation.New,
+var Provider = wire.NewSet(
+	mutation.Provider,
+	project.New,
 	query.New,
 	root.New,
-	New,
 )

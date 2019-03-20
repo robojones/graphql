@@ -18,7 +18,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	h.Next.ServeHTTP(w, r)
 }
 
-func New(client *prisma.Client, resolver *root.Resolver) *Handler {
+func New(client *prisma.Client, resolver *root.Root) *Handler {
 	schema := gqlgen.NewExecutableSchema(gqlgen.Config{Resolvers: resolver})
 
 	return &Handler{

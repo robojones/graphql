@@ -1,11 +1,15 @@
 type Query {
 	user: User!
+	projects: [Project!]!
 }
 
 type Mutation {
-	signup(params: SignupInput!): SignupPayload!
-	login(params: LoginInput!): LoginPayload!
+	signup(input: SignupInput!): SignupPayload!
+	login(input: LoginInput!): LoginPayload!
 	logout: LogoutResult!
+
+	createProject(input: CreateProjectInput!): CreateProjectPayload!
+	updateProject(input: UpdateProjectInput!): UpdateProjectPayload!
 }
 
 input SignupInput {
@@ -14,14 +18,15 @@ input SignupInput {
 	password: String!
 }
 
-input LoginInput {
-	email: String!
-	password: String!
-}
-
 type SignupPayload {
 	session: Session!
 	user: User!
+}
+
+
+input LoginInput {
+	email: String!
+	password: String!
 }
 
 type LoginPayload {
@@ -29,8 +34,26 @@ type LoginPayload {
 	user: User!
 }
 
+
 type LogoutResult {
 	user: User!
+}
+
+input CreateProjectInput {
+	title: String!
+}
+
+type CreateProjectPayload {
+	project: Project!
+}
+
+input UpdateProjectInput {
+	id: ID!
+	title: String
+}
+
+type UpdateProjectPayload {
+	project: Project!
 }
 
 type User {
@@ -45,4 +68,10 @@ type User {
 type Session {
 	id: ID!
 	token: String!
+}
+
+type Project {
+	id: ID!
+	title: String!
+	members: [User!]!
 }

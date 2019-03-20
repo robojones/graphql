@@ -1,0 +1,5 @@
+ type Project {
+	 id: ID! @unique
+	 title: String!
+	 members: [User!]!
+ }

@@ -2,7 +2,7 @@ package server
 
 import "github.com/google/wire"
 
-var Providers = wire.NewSet(
+var Provider = wire.NewSet(
 	NewServer,
 	NewConfig,
 	NewServeMux,

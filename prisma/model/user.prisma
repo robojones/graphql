@@ -8,5 +8,7 @@ type User {
 
 	sessions: [Session!]! @relation(name: "SessionToUser", onDelete: CASCADE)
 
+	projects: [Project!]!
+
 	name: String!
 }

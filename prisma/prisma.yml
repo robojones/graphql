@@ -6,6 +6,7 @@ datamodel:
   - shared.graphqls
   - model/session.prisma
   - model/user.prisma
+  - model/project.prisma
 
 # Specifies the language and directory for the generated Prisma client.
 generate:

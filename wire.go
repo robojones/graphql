@@ -11,9 +11,9 @@ import (
 
 func Initialize() (*server.Server, error) {
 	wire.Build(
-		prisma.Providers,
-		api.Providers,
-		server.Providers,
+		prisma.Provider,
+		api.Provider,
+		server.Provider,
 	)
 	return &server.Server{}, nil
 }

@@ -4,29 +4,33 @@ package root
 
 import (
 	"github.com/robojones/graphql/api/resolver/mutation"
+	"github.com/robojones/graphql/api/resolver/project"
 	"github.com/robojones/graphql/api/resolver/query"
 	"github.com/robojones/graphql/gqlgen"
-	"github.com/robojones/graphql/prisma"
 )
 
-type Resolver struct {
-	Prisma           *prisma.Client
-	MutationResolver *mutation.Resolver
-	QueryResolver    *query.Resolver
+type Root struct {
+	MutationResolver *mutation.Mutation
+	ProjectResolver  *project.Project
+	QueryResolver    *query.Query
 }
 
-func New(client *prisma.Client, mutation *mutation.Resolver, query *query.Resolver) *Resolver {
-	return &Resolver{
-		Prisma:           client,
+func New(mutation *mutation.Mutation, query *query.Query, project *project.Project) *Root {
+	return &Root{
+		ProjectResolver:  project,
 		MutationResolver: mutation,
 		QueryResolver:    query,
 	}
 }
 
-func (r *Resolver) Mutation() gqlgen.MutationResolver {
+func (r *Root) Mutation() gqlgen.MutationResolver {
 	return r.MutationResolver
 }
 
-func (r *Resolver) Query() gqlgen.QueryResolver {
+func (r *Root) Project() gqlgen.ProjectResolver {
+	return r.ProjectResolver
+}
+
+func (r *Root) Query() gqlgen.QueryResolver {
 	return r.QueryResolver
 }

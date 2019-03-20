@@ -2,7 +2,7 @@ package prisma
 
 import "github.com/google/wire"
 
-var Providers = wire.NewSet(
+var Provider = wire.NewSet(
 	NewClient,
 	NewConfig,
 )
