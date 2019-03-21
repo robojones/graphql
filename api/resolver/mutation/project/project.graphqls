@@ -1,0 +1,16 @@
+input CreateProjectInput {
+	title: String!
+}
+
+type CreateProjectPayload {
+	project: Project!
+}
+
+input UpdateProjectInput {
+	id: ID!
+	title: String
+}
+
+type UpdateProjectPayload {
+	project: Project!
+}

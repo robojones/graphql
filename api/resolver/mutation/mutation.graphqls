@@ -1,0 +1,8 @@
+type Mutation {
+	signup(input: SignupInput!): SignupPayload!
+	login(input: LoginInput!): LoginPayload!
+	logout: LogoutResult!
+
+	createProject(input: CreateProjectInput!): CreateProjectPayload!
+	updateProject(input: UpdateProjectInput!): UpdateProjectPayload!
+}

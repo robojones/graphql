@@ -3,7 +3,11 @@
 # Refer to https://gqlgen.com/config/
 # for detailed .gqlgen.yml documentation.
 
-schema: api/schema.graphqls
+schema:
+  - api/resolver/query/*.graphqls
+  - api/resolver/mutation/*.graphqls
+  - api/resolver/mutation/auth/*.graphqls
+  - api/resolver/mutation/project/*.graphqls
 exec:
   filename: gqlgen/gqlgen.go
 model:

@@ -1,0 +1,24 @@
+type Query {
+	user: User!
+	projects: [Project!]!
+}
+
+type User {
+	id: ID!
+	email: String!
+
+	name: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Session {
+	id: ID!
+	token: String!
+}
+
+type Project {
+	id: ID!
+	title: String!
+	members: [User!]!
+}
